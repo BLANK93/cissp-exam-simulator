@@ -45,7 +45,7 @@ async function selectWeightedQuestions(
   // Get ALL active questions for the selected certification (for total count/history reset check)
   const allQuestionIdsInDB = (await Question.find({ isActive: true, certification: selectedCertification }, '_id')).map(q => q._id.toString()); // <--- FILTER BY CERTIFICATION
   if (userUsedQuestionIds.length >= allQuestionIdsInDB.length && allQuestionIdsInDB.length > 0) {
-      console.warn(`WARNING: User ${userId} has attempted all available unique questions for ${selectedCertification} (${userUsedQuestionIds.length}/${allQuestionIdsInDB.length}). History will be effectively cleared for this exam selection.`);
+      //console.warn(`WARNING: User ${userId} has attempted all available unique questions for ${selectedCertification} (${userUsedQuestionIds.length}/${allQuestionIdsInDB.length}). History will be effectively cleared for this exam selection.`);
       userUsedQuestionIds = []; // Temporarily clear user's used question IDs for this selection process
   }
 
@@ -61,7 +61,7 @@ async function selectWeightedQuestions(
     }).lean();
 
     if (availableQuestions.length < numQuestions) {
-      console.warn(`WARNING: Not enough unique questions (${availableQuestions.length}) for certification: "${selectedCertification}" (Target: ${numQuestions}). Supplementing with previously used questions.`);
+      //console.warn(`WARNING: Not enough unique questions (${availableQuestions.length}) for certification: "${selectedCertification}" (Target: ${numQuestions}). Supplementing with previously used questions.`);
       availableQuestions = await Question.find({ certification: selectedCertification, isActive: true }).lean(); // Get all if short
     }
     selectedQuestions = availableQuestions.sort(() => 0.5 - Math.random()).slice(0, numQuestions);
@@ -79,20 +79,20 @@ async function selectWeightedQuestions(
     }).lean();
 
     if (availableDomainQuestions.length < numQuestions) {
-      console.warn(`WARNING: Not enough unique questions (${availableDomainQuestions.length}) for domain: "${selectedDomain}" (Target: ${numQuestions}). Supplementing with previously used questions.`);
+      //console.warn(`WARNING: Not enough unique questions (${availableDomainQuestions.length}) for domain: "${selectedDomain}" (Target: ${numQuestions}). Supplementing with previously used questions.`);
       availableDomainQuestions = await Question.find({ domain: selectedDomain, certification: selectedCertification, isActive: true }).lean(); // Get all if short
     }
     selectedQuestions = availableDomainQuestions.sort(() => 0.5 - Math.random()).slice(0, numQuestions);
-    console.log(`DEBUG: Selected ${selectedQuestions.length} questions from "${selectedDomain}" domain.`);
+    //console.log(`DEBUG: Selected ${selectedQuestions.length} questions from "${selectedDomain}" domain.`);
 
   } else {
     // Option 3: Weighted AND All Domains (e.g., Full CISSP Exam or a weighted mock exam)
-    console.log(`DEBUG: Full/Weighted Exam Mode: Selecting ${numQuestions} questions across all domains in Certification "${selectedCertification}".`);
+    //console.log(`DEBUG: Full/Weighted Exam Mode: Selecting ${numQuestions} questions across all domains in Certification "${selectedCertification}".`);
     const totalQuestionsForWeightedSelection = numQuestions; // Use passed numQuestions as total target
 
     for (const domain in CISSP_DOMAIN_WEIGHTS) {
       const targetCount = Math.round(totalQuestionsForWeightedSelection * CISSP_DOMAIN_WEIGHTS[domain]);
-      console.log(`DEBUG:   Domain: "${domain}", Target Count: ${targetCount}`);
+      //console.log(`DEBUG:   Domain: "${domain}", Target Count: ${targetCount}`);
 
       let domainQuestions = await Question.find({
         domain: domain,

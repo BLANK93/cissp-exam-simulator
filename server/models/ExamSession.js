@@ -41,7 +41,7 @@ const ExamSessionSchema = new mongoose.Schema({
         correct: { type: Number, default: 0 },
         total: { type: Number, default: 0 }
     },
-    'Identity and Access Management': { // Note: Removed '(IAM)' for consistency
+    'Identity and Access Management': { 
         correct: { type: Number, default: 0 },
         total: { type: Number, default: 0 }
     },
@@ -64,9 +64,9 @@ const ExamSessionSchema = new mongoose.Schema({
     enum: ['in-progress', 'completed', 'timed-out'],
     default: 'in-progress'
   },
-  isWeighted: { // <--- NEW FIELD: True if exam used domain weighting
+    isWeighted: { // <--- ENSURE THIS FIELD IS HERE
     type: Boolean,
-    default: true // Default to true if not provided (for older exams)
+    default: true // Default to true if not explicitly set (e.g., for older exam sessions)
   }
 }, { timestamps: true });
 
