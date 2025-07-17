@@ -1,0 +1,10 @@
+{
+	"_id": {
+		"$oid": "6879140f1cd7a0d41237082d"
+	},
+	"username": "admin",
+	"password": "$2b$10$WXJmwfy8p/nsnS.fgJL4guUQaFHKRLZJFBwGWryLRWJNFFr8IcE9.",
+	"role": "admin",
+	"questionsHistory": [],
+	"__v": 0
+}

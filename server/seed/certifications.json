@@ -1,0 +1,42 @@
+{
+	"_id": {
+		"$oid": "68782dd2ab436420a0729a79"
+	},
+	"name": "CISSP",
+	"description": "Certified Information Systems Security Professional\n\nClick \"Add Certification\".",
+	"createdAt": {
+		"$date": "2025-07-16T22:55:14.643Z"
+	},
+	"updatedAt": {
+		"$date": "2025-07-17T02:51:55.083Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6878655723e4b1c2e61a90c0"
+	},
+	"name": "ENGLISH",
+	"description": "",
+	"createdAt": {
+		"$date": "2025-07-17T02:52:07.559Z"
+	},
+	"updatedAt": {
+		"$date": "2025-07-17T02:52:07.559Z"
+	},
+	"__v": 0
+}
+{
+	"_id": {
+		"$oid": "6878656823e4b1c2e61a90c9"
+	},
+	"name": "CKA",
+	"description": "Certified Kubernetes Administrator",
+	"createdAt": {
+		"$date": "2025-07-17T02:52:24.744Z"
+	},
+	"updatedAt": {
+		"$date": "2025-07-17T02:52:24.744Z"
+	},
+	"__v": 0
+}
