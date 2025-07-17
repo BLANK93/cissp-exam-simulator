@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, } from 'react-router-dom'; // <--- Ensure useNavigate is imported
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'; // Ensure useNavigate is imported
 import WelcomeScreen from './components/WelcomeScreen';
 import ExamScreen from './components/ExamScreen';
 import ResultsScreen from './components/ResultsScreen';
@@ -19,6 +19,14 @@ function App() {
     currentQuestionIndex: 0,
   });
   const [examResults, setExamResults] = useState(null); // Store results after submission
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light'); // <--- NEW STATE FOR THEME
+
+  // Effect to apply theme class and save to localStorage
+  useEffect(() => {
+    document.body.classList.remove('light-mode', 'dark-mode'); // Remove old classes
+    document.body.classList.add(theme + '-mode'); // Add current theme class (e.g., 'dark-mode')
+    localStorage.setItem('theme', theme); // Save user's preference
+  }, [theme]); // Rerun this effect when the 'theme' state changes
 
   useEffect(() => {
     // Check for user in localStorage on app load
@@ -52,13 +60,20 @@ function App() {
     <Router>
       <div className="App">
         <nav className="navbar">
-          <Link to="/" className="nav-brand">EXAM PREP 101</Link>
+          <Link to="/" className="nav-brand">Exam Prep 101</Link> {/* Updated text */}
           <div className="nav-links">
             {user ? (
               <>
                 <span>Welcome, {user.username} ({user.role})</span>
-                <Link to="/history">Score Report</Link>
+                <Link to="/history">Score History</Link>
                 {user.role === 'admin' && <Link to="/admin">Admin Panel</Link>}
+                
+                {/* --- NEW: DARK MODE TOGGLE BUTTON --- */}
+                <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} className="theme-toggle-button">
+                  {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                </button>
+                {/* --- END NEW BUTTON --- */}
+
                 <button onClick={handleLogout}>Logout</button>
               </>
             ) : (
@@ -73,15 +88,13 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<WelcomeScreen user={user} setExamState={setExamState} />} />
-            {/* --- UPDATED ROUTE FOR RESULTS --- */}
-            <Route path="/results/:examSessionId" element={ /* Added :examSessionId parameter */
+            <Route path="/results/:examSessionId" element={
               user ? (
                 <ResultsScreen examResults={examResults} />
               ) : (
                 <p>Please log in to view results.</p>
               )
             } />
-            {/* --- END UPDATED ROUTE --- */}
             <Route path="/exam" element={
               user ? (
                 <ExamScreen
@@ -101,7 +114,6 @@ function App() {
                 <p>Please log in to view your exam history.</p>
               )
             } />
-            {/* --- NEW ROUTE FOR ADMIN VIEWING USER HISTORY --- */}
             <Route path="/admin/users/:userId/history" element={
               user && user.role === 'admin' ? (
                 <ScoreHistory />
@@ -109,7 +121,6 @@ function App() {
                 <p>Access Denied. Admins only.</p>
               )
             } />
-            {/* --- END NEW ROUTE --- */}
             <Route path="/admin" element={
               user && user.role === 'admin' ? (
                 <AdminPanel user={user} />

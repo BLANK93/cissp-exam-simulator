@@ -1,5 +1,6 @@
 /* General Body Styles */
 :root {
+  /* Light Theme Colors (Defaults) */
   --primary-color: #3498db; /* Blue */
   --secondary-color: #2c3e50; /* Dark Blue/Grey */
   --accent-color: #2ecc71; /* Green */
@@ -11,14 +12,58 @@
   --border-color: #ddd;
   --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.08);
   --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+  /* Common Component Backgrounds (using light theme defaults) */
+  --card-bg: white;
+  --header-bg: var(--secondary-color);
+  --table-header-bg: var(--background-medium);
+  --table-row-even-bg: var(--background-light);
+  --input-bg: white;
+  --dropdown-bg: white;
+  --nav-link-hover-bg: #34495e; /* Specific to navbar hover */
+  --tab-button-bg: var(--background-medium);
+  --tab-button-active-bg: var(--primary-color);
+  --error-bg: #fdeded;
+  --success-bg: #eaf7f2;
 }
 
+/* Dark Mode Colors */
+body.dark-mode {
+  /* Overrides for Dark Theme */
+  --primary-color: #82aaff; /* Lighter Blue */
+  --secondary-color: #1a1a2e; /* Very Dark Blue */
+  --accent-color: #63d471; /* Brighter Green */
+  --danger-color: #ff6b6b; /* Brighter Red */
+  --text-color-dark: #e0e0e0; /* Light text on dark bg */
+  --text-color-light: #ffffff; /* Dark text for elements on light accent in dark mode */
+  --background-light: #2d2d44; /* Dark background */
+  --background-medium: #3a3a5e; /* Slightly lighter dark background */
+  --border-color: #4a4a75; /* Darker border */
+  --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+  /* Component Specific Overrides for Dark Theme */
+  --card-bg: #1f1f3a; /* Dark card background */
+  --header-bg: var(--secondary-color); /* Still very dark blue */
+  --table-header-bg: #2a2a4b;
+  --table-row-even-bg: #26263f;
+  --input-bg: #3a3a5e; /* Dark input background */
+  --dropdown-bg: #3a3a5e; /* Dark dropdown background */
+  --nav-link-hover-bg: #4a4a75;
+  --tab-button-bg: #3a3a5e;
+  --tab-button-active-bg: var(--primary-color);
+  --error-bg: #4a1f1f;
+  --success-bg: #2a4b2a;
+}
+
+/* General Body Styles */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--background-light);
-  color: var(--text-color-dark);
+  background-color: var(--background-light); /* Use variable */
+  color: var(--text-color-dark); /* Use variable */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
 }
 
 .App {
@@ -31,25 +76,27 @@ body {
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
-  background-color: white;
+  background-color: var(--card-bg); /* Use variable */
   border-radius: 8px;
   box-shadow: var(--shadow-light);
   flex-grow: 1;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Navbar */
 .navbar {
-  background-color: var(--secondary-color);
+  background-color: var(--header-bg); /* Use variable */
   padding: 15px 20px;
-  color: white;
+  color: var(--text-color-light); /* Use variable */
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-brand {
-  color: white;
+  color: var(--text-color-light); /* Use variable */
   text-decoration: none;
   font-size: 1.8em;
   font-weight: bold;
@@ -57,7 +104,7 @@ body {
 
 .nav-links a,
 .nav-links button {
-  color: white;
+  color: var(--text-color-light); /* Use variable */
   text-decoration: none;
   margin-left: 20px;
   font-size: 1.1em;
@@ -71,7 +118,7 @@ body {
 
 .nav-links a:hover,
 .nav-links button:hover {
-  background-color: #34495e;
+  background-color: var(--nav-link-hover-bg); /* Use variable */
 }
 
 /* Base Buttons (used throughout the app) */
@@ -87,7 +134,8 @@ button {
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: var(--primary-color); /* Maintain active primary color */
+  filter: brightness(1.1); /* Slightly brighter on hover */
   transform: translateY(-1px);
 }
 
@@ -97,8 +145,10 @@ button:active {
 
 button:disabled {
   background-color: #cccccc;
+  color: #888;
   cursor: not-allowed;
   transform: none;
+  filter: none;
 }
 
 /* Forms (General) */
@@ -107,15 +157,16 @@ button:disabled {
   max-width: 500px;
   margin: 40px auto;
   padding: 30px;
-  background-color: white;
+  background-color: var(--card-bg); /* Use variable */
   border-radius: 8px;
   box-shadow: var(--shadow-light);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .auth-form h2,
 .question-form h3 {
   text-align: center;
-  color: var(--secondary-color);
+  color: var(--text-color-dark);
   margin-bottom: 25px;
 }
 
@@ -134,14 +185,16 @@ button:disabled {
 .form-group input[type="password"],
 .form-group textarea,
 .form-group select,
-.form-group input[type="number"] { /* Added number input */
+.form-group input[type="number"] {
   width: calc(100% - 20px);
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1em;
   box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--input-bg); /* Use variable */
+  color: var(--text-color-dark); /* Use variable */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .form-group input[type="text"]:focus,
@@ -191,75 +244,76 @@ button:disabled {
 .welcome-screen {
   text-align: center;
   padding: 50px 20px;
-  background-color: white; /* White background for the main card */
+  background-color: var(--card-bg); /* Use variable */
   border-radius: 8px;
-  box-shadow: var(--shadow-medium); /* More prominent shadow */
+  box-shadow: var(--shadow-medium);
   margin: 40px auto;
   max-width: 700px;
-  overflow: hidden; /* Ensures rounded corners apply correctly */
+  overflow: hidden;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .welcome-header-section {
-  background-color: var(--secondary-color); /* Dark header background */
+  background-color: var(--header-bg);
   color: var(--text-color-light);
   padding: 30px 20px;
-  margin: -50px -20px 30px -20px; /* Pulls it to the edges of the parent padding */
-  border-bottom: 5px solid var(--primary-color); /* Accent line */
+  margin: -50px -20px 30px -20px;
+  border-bottom: 5px solid var(--primary-color);
   box-shadow: var(--shadow-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .welcome-screen h1 {
-  color: var(--text-color-light); /* White text for header */
+  color: var(--text-color-light);
   font-size: 2.8em;
-  margin-bottom: 10px; /* Reduced margin */
+  margin-bottom: 10px;
   line-height: 1.2;
 }
 
 .welcome-screen p {
   font-size: 1.1em;
   line-height: 1.6;
-  color: #ccc; /* Lighter text for header description */
+  color: #ccc;
   max-width: 500px;
   margin: 0 auto;
 }
 
 .exam-selection-section {
-  padding-top: 0; /* No extra padding here */
+  padding-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; /* Space between selection groups */
+  gap: 20px;
 }
 
-/* Common styles for form groups in selection */
 .form-group-inline {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    width: 100%; /* Take full width */
-    max-width: 500px; /* Constrain content inside */
+    width: 100%;
+    max-width: 500px;
 }
 
 .label-bold {
     font-weight: bold;
-    color: var(--secondary-color); /* Darker label text */
+    color: var(--text-color-dark);
     font-size: 1.1em;
-    white-space: nowrap; /* Prevent label wrapping */
+    white-space: nowrap;
 }
 
-/* Styling for select dropdowns in Welcome Screen */
 .welcome-screen select {
     padding: 10px 15px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
     font-size: 1em;
-    background-color: white;
+    background-color: var(--dropdown-bg);
+    color: var(--text-color-dark);
     cursor: pointer;
     outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    min-width: 200px; /* Ensure minimum width */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+    min-width: 200px;
 }
 
 .welcome-screen select:focus {
@@ -267,15 +321,15 @@ button:disabled {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* Styles for custom exam inputs (non-CISSP) */
 .custom-exam-inputs-section {
-    background-color: var(--background-medium); /* Slightly darker background */
+    background-color: var(--background-medium);
     padding: 25px;
     border-radius: 8px;
-    border: 1px dashed var(--primary-color); /* Primary color dashed border */
+    border: 1px dashed var(--primary-color);
     margin: 20px auto;
     max-width: 550px;
     box-shadow: var(--shadow-light);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .section-title {
@@ -307,6 +361,8 @@ button:disabled {
     font-size: 1em;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--input-bg);
+    color: var(--text-color-dark);
 }
 .label-inline input[type="number"]:focus {
     border-color: var(--primary-color);
@@ -319,13 +375,12 @@ button:disabled {
     margin-top: 10px;
 }
 
-/* Start Exam Button (specific to Welcome Screen) */
 .start-exam-button {
   padding: 15px 30px;
   font-size: 1.5em;
-  background-color: var(--accent-color); /* Green accent */
+  background-color: var(--accent-color);
   box-shadow: var(--shadow-light);
-  margin-top: 20px; /* Space from inputs */
+  margin-top: 20px;
 }
 
 .start-exam-button:hover {
@@ -339,7 +394,6 @@ button:disabled {
     margin-top: 30px;
     font-weight: bold;
 }
-
 
 /* Exam Screen */
 .exam-screen {
@@ -355,6 +409,9 @@ button:disabled {
   background-color: var(--background-medium);
   border-radius: 8px;
   box-shadow: var(--shadow-light);
+  position: relative;
+  gap: 15px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .timer {
@@ -384,22 +441,19 @@ button:disabled {
 }
 
 .question-card {
-  background-color: white;
+  background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 20px;
   box-shadow: var(--shadow-light);
-    /* --- ADD THESE LINES FOR FIXED HEIGHT --- */
-  height: 400px; /* Adjust this value as needed based on your average question length */
-  width: 1000px; /* Fixed width for consistency */
-  overflow: hidden; /* Prevents content from overflowing */
-  overflow-y: auto; /* Adds a scrollbar if content exceeds height */
-  /* --- END ADDITION --- */
+  height: 400px; /* Fixed height */
+  overflow-y: auto; /* Scrollbar if content exceeds height */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .question-card h3 {
-  color: var(--secondary-color);
+  color: var(--text-color-dark);
   margin-bottom: 25px;
   font-size: 1.5em;
   line-height: 1.6;
@@ -424,6 +478,8 @@ button:disabled {
   border: 1px solid var(--border-color);
   border-radius: 5px;
   transition: background-color 0.2s ease;
+  background-color: var(--input-bg);
+  color: var(--text-color-dark);
 }
 
 .option-label:hover {
@@ -457,9 +513,8 @@ button:disabled {
   background-color: #d35400;
 }
 
-/* Style for the "End Exam" button */
 .exam-navigation .end-exam-early-button {
-  background-color: #dd0e18;
+  background-color: var(--danger-color);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -474,7 +529,6 @@ button:disabled {
 .exam-navigation .end-exam-early-button:hover {
   background-color: #b11111;
 }
-
 
 /* Results Screen */
 .results-screen {
@@ -534,7 +588,6 @@ button:disabled {
   margin-top: 30px;
 }
 
-/* Base style for each individual question review item */
 .question-review-item {
   background-color: var(--background-light);
   border: 1px solid var(--border-color);
@@ -544,7 +597,6 @@ button:disabled {
   box-shadow: var(--shadow-light);
 }
 
-/* Left border color based on overall question correctness */
 .question-review-item.correct {
   border-left: 5px solid var(--accent-color);
 }
@@ -565,7 +617,6 @@ button:disabled {
   margin: 0;
 }
 
-/* Styling for individual LI options in review */
 .options-list li {
   padding: 8px 0;
   border-bottom: 1px dashed var(--border-color);
@@ -608,14 +659,13 @@ button:disabled {
 
 /* Badge for User's Answer when it's CORRECT */
 .user-correct-badge {
-    background-color: #28a745; /* Slightly different green */
+    background-color: #28a745;
 }
 
 /* Badge for User's Answer when it's INCORRECT */
 .user-incorrect-badge {
     background-color: var(--danger-color);
 }
-
 
 /* Explanation section styling */
 .explanation {
@@ -631,8 +681,8 @@ button:disabled {
 /* Error and Success Messages */
 .error-message {
   color: var(--danger-color);
-  background-color: #fdeded;
-  border: 1px solid #fbc2c4;
+  background-color: var(--error-bg);
+  border: 1px solid var(--danger-color);
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -641,8 +691,8 @@ button:disabled {
 
 .success-message {
   color: var(--accent-color);
-  background-color: #eaf7f2;
-  border: 1px solid #c3e6cb;
+  background-color: var(--success-bg);
+  border: 1px solid var(--accent-color);
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -656,7 +706,7 @@ button:disabled {
 
 .admin-panel h2 {
   text-align: center;
-  color: var(--secondary-color);
+  color: var(--text-color-dark);
   margin-bottom: 30px;
 }
 
@@ -674,13 +724,13 @@ button:disabled {
 }
 
 .questions-table th {
-  background-color: var(--background-medium);
+  background-color: var(--table-header-bg);
   font-weight: bold;
   color: var(--text-color-dark);
 }
 
 .questions-table tbody tr:nth-child(even) {
-  background-color: var(--background-light);
+  background-color: var(--table-row-even-bg);
 }
 
 .questions-table button {
@@ -714,7 +764,7 @@ button:disabled {
 }
 
 .admin-tabs .tab-button {
-    background-color: var(--background-medium);
+    background-color: var(--tab-button-bg);
     color: var(--text-color-dark);
     padding: 12px 25px;
     border: 1px solid var(--border-color);
@@ -733,16 +783,16 @@ button:disabled {
 }
 
 .admin-tabs .tab-button.active {
-    background-color: var(--primary-color);
+    background-color: var(--tab-button-active-bg);
     color: white;
-    border-color: var(--primary-color);
+    border-color: var(--tab-button-active-bg);
     border-bottom: 1px solid white;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
 
 .admin-tabs .tab-button.active:hover {
-    background-color: var(--primary-color);
+    background-color: var(--tab-button-active-bg);
 }
 
 /* Filter and Search Controls */
@@ -751,16 +801,17 @@ button:disabled {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    align-items: flex-end; /* Aligns items to the bottom */
+    align-items: flex-end;
     background-color: var(--background-light);
     padding: 15px;
     border-radius: 8px;
     box-shadow: var(--shadow-light);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .filter-and-search-controls > div {
-    flex-grow: 1; /* Allow items to grow */
-    min-width: 150px; /* Minimum width for each filter group */
+    flex-grow: 1;
+    min-width: 150px;
 }
 
 .filter-and-search-controls label {
@@ -773,13 +824,15 @@ button:disabled {
 
 .filter-and-search-controls input[type="text"],
 .filter-and-search-controls select {
-    width: 100%; /* Take full width of their container */
+    width: 100%;
     padding: 8px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     font-size: 0.95em;
     box-sizing: border-box;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--input-bg);
+    color: var(--text-color-dark);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .filter-and-search-controls input[type="text"]:focus,
@@ -792,10 +845,10 @@ button:disabled {
 /* Pagination Controls */
 .pagination-controls {
     display: flex;
-    justify-content: center; /* Center the pagination buttons */
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
-    gap: 5px; /* Space between buttons */
+    gap: 5px;
 }
 
 .pagination-controls button {

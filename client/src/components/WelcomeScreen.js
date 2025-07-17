@@ -107,8 +107,8 @@ function WelcomeScreen({ user, setExamState }) {
         }
         numQuestionsToSend = customNumQuestions;
         examDurationToSend = customDurationMinutes * 60 * 1000;
-        isWeightedToSend = false;
-        selectedDomainToSend = 'All';
+        isWeightedToSend = false; // Custom exams for other certs are always non-weighted
+        selectedDomainToSend = 'All'; // Always 'All' domains for unweighted custom exams
     }
 
     const examParams = {
@@ -154,12 +154,12 @@ function WelcomeScreen({ user, setExamState }) {
   return (
     <div className="welcome-screen">
       <div className="welcome-header-section">
-        <h1>Welcome to your Exam Simulator!</h1>
+        <h1>Welcome to the CISSP Exam Simulator!</h1>
         <p>Prepare for your certification with a realistic exam experience.</p>
       </div>
 
       {user ? (
-        <> {/* This fragment groups the logged-in user's content */}
+        <>
           {/* Certification Selection (NOW DYNAMIC) */}
           <div style={{ marginBottom: '20px', textAlign: 'center' }}>
             <label htmlFor="certificationSelect" style={{ marginRight: '10px', fontWeight: 'bold' }}>
@@ -176,6 +176,7 @@ function WelcomeScreen({ user, setExamState }) {
                 const defaultTemplateForNewCert = examTemplates.find(t => t.certification === e.target.value);
                 setSelectedTemplateId(defaultTemplateForNewCert ? defaultTemplateForNewCert._id : (examTemplates.length > 0 ? examTemplates[0]._id : ''));
               }}
+              // Removed inline style for better App.css management
             >
               {certifications.length > 0 ? ( // Use fetched certifications here
                 certifications.map(cert => (
@@ -203,6 +204,7 @@ function WelcomeScreen({ user, setExamState }) {
                                   setQuickExamDomain('All');
                               }
                           }}
+                          // Removed inline style here
                       >
                           {filteredTemplates.length > 0 ? (
                             filteredTemplates.map(template => (
@@ -227,6 +229,7 @@ function WelcomeScreen({ user, setExamState }) {
                               id="quickExamDomain"
                               value={quickExamDomain}
                               onChange={(e) => setQuickExamDomain(e.target.value)}
+                              // Removed inline style here
                           >
                               <option value="All">All Domains</option>
                               {CISSP_DOMAINS.map(domain => (
@@ -269,7 +272,7 @@ function WelcomeScreen({ user, setExamState }) {
           <button onClick={handleStartExam} className="start-exam-button primary-button">
             Start Exam
           </button>
-        </> 
+        </>
       ) : (
         <p className="login-prompt">Please log in to begin your exam simulation.</p>
       )}

@@ -7,7 +7,7 @@ function ExamQuestion({ question, index, selectedAnswer, onAnswerChange }) { // 
   // If selectedAnswer is null/undefined, initialize to an empty array.
   // If it's a string (single choice), wrap it in an array. Otherwise, use it as is (if it's already an array).
     // --- ADD THIS CONSOLE.LOG ---
-  console.log("DEBUG: ExamQuestion - incoming question prop:", question);
+  //console.log("DEBUG: ExamQuestion - incoming question prop:", question);
   // --- END CONSOLE.LOG ---
   const currentSelection = Array.isArray(selectedAnswer) ? selectedAnswer : (selectedAnswer ? [selectedAnswer] : []);
 
