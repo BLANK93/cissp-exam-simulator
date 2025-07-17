@@ -390,6 +390,12 @@ button:disabled {
   padding: 30px;
   margin-bottom: 20px;
   box-shadow: var(--shadow-light);
+    /* --- ADD THESE LINES FOR FIXED HEIGHT --- */
+  height: 400px; /* Adjust this value as needed based on your average question length */
+  width: 1000px; /* Fixed width for consistency */
+  overflow: hidden; /* Prevents content from overflowing */
+  overflow-y: auto; /* Adds a scrollbar if content exceeds height */
+  /* --- END ADDITION --- */
 }
 
 .question-card h3 {
@@ -834,4 +840,48 @@ button:disabled {
 }
 .admin-panel .add-hide-form-button:hover {
     background-color: #229954;
+}
+.exam-header {
+  display: flex;
+  justify-content: space-between; /* Distributes items along the main axis */
+  align-items: center; /* Aligns items vertically in the middle */
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--background-medium);
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+  position: relative; /* Needed for absolute positioning of children if desired, but flex is enough here */
+  gap: 15px; /* Add some space between header elements */
+}
+
+/* Style for the "End Exam" button when it's in the header */
+.exam-header .header-end-exam-button {
+  background-color: var(--danger-color); /* Red color for End Exam */
+  color: white;
+  padding: 8px 15px; /* Slightly smaller padding than main buttons */
+  font-size: 0.95em; /* Slightly smaller font */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto; /* Pushes the button to the far right within the flex container */
+  flex-shrink: 0; /* Prevents button from shrinking */
+}
+
+.exam-header .header-end-exam-button:hover {
+  background-color: #b11111; /* Darker red on hover */
+}
+
+/* Ensure original .exam-navigation button styles remain correct */
+.exam-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 10px; /* Keep gap for other buttons */
+}
+
+.exam-navigation button {
+    padding: 12px 25px; /* Adjust padding for regular navigation buttons */
+    font-size: 1.1em;
+    /* Inherits background/color from base button */
 }

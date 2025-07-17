@@ -154,7 +154,7 @@ function WelcomeScreen({ user, setExamState }) {
   return (
     <div className="welcome-screen">
       <div className="welcome-header-section">
-        <h1>Welcome to the Super VIP PRO Exam Simulator!</h1>
+        <h1>Welcome to your Exam Simulator!</h1>
         <p>Prepare for your certification with a realistic exam experience.</p>
       </div>
 

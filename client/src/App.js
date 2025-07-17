@@ -52,12 +52,12 @@ function App() {
     <Router>
       <div className="App">
         <nav className="navbar">
-          <Link to="/" className="nav-brand">Exam Prep</Link>
+          <Link to="/" className="nav-brand">EXAM PREP 101</Link>
           <div className="nav-links">
             {user ? (
               <>
                 <span>Welcome, {user.username} ({user.role})</span>
-                <Link to="/history">Score History</Link>
+                <Link to="/history">Score Report</Link>
                 {user.role === 'admin' && <Link to="/admin">Admin Panel</Link>}
                 <button onClick={handleLogout}>Logout</button>
               </>

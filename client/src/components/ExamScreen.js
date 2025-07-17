@@ -72,6 +72,9 @@ function ExamScreen({ examState, setExamState, setExamResults, user }) {
         <Timer startTime={startTime} duration={duration} onTimeUp={handleTimeUp} />
         <ProgressBar current={currentQuestionIndex + 1} total={questions.length} />
         <p>Question {currentQuestionIndex + 1} of {questions.length}</p>
+        <button onClick={handleSubmitExam} className="end-exam-early-button header-end-exam-button">
+      End Exam NOW
+    </button>
       </div>
 
       {currentQuestion && (
@@ -89,12 +92,7 @@ function ExamScreen({ examState, setExamState, setExamResults, user }) {
         <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
           Previous
         </button>
-
-        <button onClick={handleSubmitExam} className="end-exam-early-button">
-          End Exam
-        </button>
-
-        {currentQuestionIndex < questions.length - 1 ? (
+                {currentQuestionIndex < questions.length - 1 ? (
           <button onClick={handleNextQuestion}>Next</button>
         ) : (
           <button onClick={handleSubmitExam} className="submit-button">
